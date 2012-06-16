@@ -7,17 +7,31 @@
 	</head>
 	<body>
 		<font face="Monospace">
-		<div id="test_area" style="border: 3px silver solid; float:left;">a </div>
-		<div id="log_area" >b </div>
+		<table style="border:2px silver solid;">
+			<tr>
+				<td colspan="2">
+					<div id="map_area" >&nbsp;</div>
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" valign="top">
+					<b>Tile information</b><br>
+					<div id="tile_area" >&nbsp;</div>
+				</td>
+				<td width="50%" valign="top">
+					<div id="unit_area" >&nbsp;</div>
+					<br/><br/><br/>
+					<div id="log_area" >&nbsp;</div>
+				</td>
+			</tr>
+		</table>
 
 		<script>
+
 	 	var world = generate_world(20, 50);
-
 		var LOG = "";
-		var text = draw(world);
 
-		document.getElementById('test_area').innerHTML = text;
-		document.getElementById('log_area').innerHTML = "LOG:<br>" + LOG;
+		draw_screen();
 
 		</script>
 	</body>

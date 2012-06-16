@@ -60,6 +60,55 @@
 		LOG = LOG + text + "<br>";
 	}
 
+	var select_unit = function(hi,j,c){
+		var tile = world.get_cell(hi,j);
+		var unit = tile.get_item('units').get(c);
+	
+		var text = "<b>Unit information:</b><br>";
+		text = text + "Postion: " + hi + "," +j + "<br>";
+		text = text + "Type: " + unit.type + "<br>";
+
+		document.getElementById('unit_area').innerHTML = text;
+
+		// Move Unit To Front
+		tile.set_item('selected_unit', c);
+		draw_screen();
+	}
+
+	var draw_tile_area = function(i, j){
+		var hi = i - 1;
+		var tile = world.get_cell(hi,j);
+		var text = "Postion: " + hi + "," +j + "<br>";
+		text = text + "Type: " + tile.get_item('background').type + "<br>";
+
+		// Minerals
+		text = text + "<br>";
+		text = text + "<b>Minerals</b><br>";
+		text = text + "Minerals not implemented yet.<br>";
+
+		// Units
+		text = text + "<br>";
+		text = text + "<b>Units</b><br>";
+		var units = tile.get_item('units'); 
+		if ( units != undefined ){
+			for ( var c = 0; c < units.size; c++){
+				var unit = units.list[c];
+				text = text + "<img onclick='select_unit("+hi+","+j+","+c+");' src='"+unit.image+"'>&nbsp;";
+			}
+		} else {
+			text = text + "No units on square.<br>";
+		}
+
+		document.getElementById('tile_area').innerHTML = text;
+	}
+
+	var draw_screen = function(){
+
+		var text = draw(world);		
+		document.getElementById('map_area').innerHTML = text;
+		document.getElementById('log_area').innerHTML = "LOG:<br>" + LOG;
+	}
+
 	var draw = function(world){
 
 		var text = "<table>";
@@ -73,10 +122,11 @@
 				var units = cell.get_item('units');
 
 				if ( units != undefined ){
-					x = '<img src="' + units.get(0).image +  '" ></image>';
+					var selected_unit = cell.get_item('selected_unit');
+					x = '<img src="' + units.get(selected_unit).image +  '" ></image>';
 				}
 	
-				text = text + "<td style='width:20;height:20;background-color:"+ cell.get_item('background').color +";'>"+ x + "</td>";
+				text = text + "<td onclick='draw_tile_area("+ height_index + "," + j +");' style='width:20;height:20;background-color:"+ cell.get_item('background').color +";'>"+ x + "</td>";
 			}
 			text = text + "</tr>";
 		}
@@ -103,6 +153,10 @@
 		var cell = world.get_cell(10, 0);
 		cell.set_item('units',jsmatrix.list());
 		cell.get_item('units').push(nodes.settler());
+		cell.get_item('units').push(nodes.soldier());
+		cell.get_item('units').push(nodes.engineer());
+		cell.set_item('selected_unit',1);
+
 
 		for (var i=0;i<world.rows;i++){
 			for (var j=0;j<world.cols;j++){

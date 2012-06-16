@@ -1,13 +1,15 @@
 
 var nodes = {
 
-	WATER: "blue",
-	GROUND: "green",
-	AIR: "lightblue",	
+	// Landscape types
+	WATER: { color: "blue", type: "water", },
+	GROUND: { color: "green", type: "ground" },
+	AIR: { color: "lightblue", type: "air" },
 
-	background: function(type){
+	background: function(landscape){
 		var object = {};
-		object.color = type;
+		object.color = landscape.color;
+		object.type = landscape.type;
 
 		return object;
 	},

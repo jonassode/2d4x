@@ -65,6 +65,7 @@
 		var unit = tile.get_item('units').get(c);
 	
 		var text = "<b>Unit information:</b><br>";
+		text = text + "<img src='"+unit.image+"'><br>";
 		text = text + "Postion: " + hi + "," +j + "<br>";
 		text = text + "Type: " + unit.type + "<br>";
 
@@ -91,6 +92,7 @@
 		text = text + "<b>Units</b><br>";
 		var units = tile.get_item('units'); 
 		if ( units != undefined ){
+			select_unit(hi,j,tile.get_item('selected_unit'));
 			for ( var c = 0; c < units.size; c++){
 				var unit = units.list[c];
 				text = text + "<img onclick='select_unit("+hi+","+j+","+c+");' src='"+unit.image+"'>&nbsp;";

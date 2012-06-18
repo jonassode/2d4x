@@ -26,15 +26,15 @@ var nodes = {
 
 	// Units
 	settler: function(){
-		return this.unit('settler','settler.png', 1, 5);
+		return this.unit('settler','settler.png', 1, 20);
 	},
 
 	soldier: function(){
-		return this.unit('soldier','soldier.png', 2, 5);
+		return this.unit('soldier','soldier.png', 2, 20);
 	},
 
 	engineer: function(){
-		return this.unit('engineer','engineer.png', 1, 5);
+		return this.unit('engineer','engineer.png', 1, 20);
 	},
 
 }

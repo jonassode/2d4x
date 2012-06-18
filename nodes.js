@@ -15,24 +15,26 @@ var nodes = {
 	},
 
 	// Unit Base Class
-	unit: function(type, image){
+	unit: function(type, image,movement, vision){
 		var object = {};
 		object.type = type;
-		object.image = image;
+		object.image = 'images/units/' + image;
+		object.movement = movement;
+		object.vision = vision;
 		return object;
 	},
 
 	// Units
 	settler: function(){
-		return this.unit('settler','settler.png');
+		return this.unit('settler','settler.png', 1, 5);
 	},
 
 	soldier: function(){
-		return this.unit('soldier','soldier.png');
+		return this.unit('soldier','soldier.png', 2, 5);
 	},
 
 	engineer: function(){
-		return this.unit('engineer','engineer.png');
+		return this.unit('engineer','engineer.png', 1, 5);
 	},
 
 }

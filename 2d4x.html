@@ -1,8 +1,10 @@
 <html>
 	<head>
 		<script type='text/javascript' src='https://raw.github.com/jonassode/javascript-matrix/master/releases/jsmatrix_001.js' ></script>
+		<script type='text/javascript' src='https://raw.github.com/jonassode/javascript-lineofsight/master/releases/jslos_001.js' ></script>
 		<script type='text/javascript' src='nodes.js' ></script> 
 		<script type='text/javascript' src='2d4x.js' ></script> 
+		<script type='text/javascript' src='player.js' ></script> 
 
 	</head>
 	<body>
@@ -20,7 +22,16 @@
 				</td>
 				<td width="50%" valign="top">
 					<div id="unit_area" >&nbsp;</div>
-					<br/><br/><br/>
+
+				</td>
+			</tr>
+			<tr>
+				<td width="50%" valign="top">
+					<b>Player list:</b></br>
+					<div id="player_area" >&nbsp;</div>
+				</td>
+				<td width="50%" valign="top">
+					<button onclick='end_turn();'>End Turn</button><br>
 					<div id="log_area" >&nbsp;</div>
 				</td>
 			</tr>
@@ -31,7 +42,17 @@
 	 	var world = generate_world(20, 50);
 		var LOG = "";
 
+		player.add('jonas');
+		player.add('nina');
+		player.add('nisse');
+		player.add('olof');
+		player.add('ygge');
+		player.add('mamma');
+
+		player.active_player().add_unit(world, nodes.settler(), 10, 0);
+
 		draw_screen();
+		player.draw_players("player_area");
 
 		</script>
 	</body>

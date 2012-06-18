@@ -66,6 +66,7 @@
 	
 		var text = "<b>Unit information:</b><br>";
 		text = text + "<img src='"+unit.image+"'><br>";
+		text = text + "Owner: " + unit.player.name + "<br>";
 		text = text + "Postion: " + hi + "," +j + "<br>";
 		text = text + "Type: " + unit.type + "<br>";
 
@@ -84,8 +85,8 @@
 
 		// Minerals
 		text = text + "<br>";
-		text = text + "<b>Minerals</b><br>";
-		text = text + "Minerals not implemented yet.<br>";
+		text = text + "<b>Resources</b><br>";
+		text = text + "Resources not implemented yet.<br>";
 
 		// Units
 		text = text + "<br>";
@@ -152,14 +153,6 @@
 
 		var world = jsmatrix.matrix2d(height, width);
 
-		var cell = world.get_cell(10, 0);
-		cell.set_item('units',jsmatrix.list());
-		cell.get_item('units').push(nodes.settler());
-		cell.get_item('units').push(nodes.soldier());
-		cell.get_item('units').push(nodes.engineer());
-		cell.set_item('selected_unit',1);
-
-
 		for (var i=0;i<world.rows;i++){
 			for (var j=0;j<world.cols;j++){
 
@@ -181,5 +174,11 @@
 		}
 
 		return world;
+	}
+
+	var end_turn = function(){
+		player.end_turn();
+		draw_screen();
+		player.draw_players("player_area");
 	}
 

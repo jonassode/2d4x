@@ -58,6 +58,9 @@ generate = {
 
 	},
 
+	START_LEVEL: 4,
+	WATER_LEVEL: 3,
+
 	world: function(height, width){
 		var arr = new Array(width);
 
@@ -65,8 +68,9 @@ generate = {
 			arr[i] = " ";
 		}
 
-		arr[0] = 10;
-		arr[width-1] = 10;
+		// Set the first and last row
+		arr[0] = this.START_LEVEL;
+		arr[width-1] = this.START_LEVEL;
 
 		// World Generateion
 		this.cal_sub_square(arr, 0, width-1, height);
@@ -81,13 +85,13 @@ generate = {
 
 				if ( arr[j] >= height_index ) {
 					type = nodes.GROUND;
-				} else if ( height_index <= 8 ) {
+				} else if ( height_index <= this.WATER_LEVEL ) {
 					type = nodes.WATER;
 				}
 
 				var background = nodes.background(type);
 
-				var cell = world.get_cell(height_index-1,j);
+				var cell = world.get_cell(i,j);
 				cell.set_item('background', background);	
 	
 			}

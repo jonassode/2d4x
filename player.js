@@ -13,7 +13,7 @@ player = {
 
 	active_player_index: 0,
 
-	active_player: function(){
+	active: function(){
 		return this.list[this.active_player_index];
 	},
 
@@ -45,7 +45,7 @@ player = {
 	
 			// Add unit to players unit list
 			this.units.push(unit);
-			
+
 			var cell = map.get_cell(row, col);
 			if ( cell.get_item('units') == undefined ){
 				cell.set_item('units',jsmatrix.list());

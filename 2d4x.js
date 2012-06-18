@@ -20,3 +20,25 @@
 		draw.screen();
 	}
 
+	jslos.blocker_values.push('#');
+
+	var los_map = function(map, player){
+		var arr = jslos.create_matrix(map.cols, map.rows);
+
+		for(var i = 0; i < map.rows; i++){
+			for(var j = 0; j < map.cols; j++){
+				var cell = map.get_cell(i, j);
+				// landscape
+				var bg = cell.get_item('background');
+				if ( bg.type == nodes.GROUND.type ){
+					arr[i][j] = '#';
+				}
+				// units
+
+			}
+		}
+
+		return arr;
+	}
+
+

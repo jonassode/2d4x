@@ -22,9 +22,8 @@ draw = {
 	},
 
 	tile_area: function(i, j){
-		var hi = i - 1;
-		var tile = world.get_cell(hi,j);
-		var text = "Postion: " + hi + "," +j + "<br>";
+		var tile = world.get_cell(i,j);
+		var text = "Postion: " + i + "," +j + "<br>";
 		text = text + "Type: " + tile.get_item('background').type + "<br>";
 
 		// Minerals
@@ -37,10 +36,10 @@ draw = {
 		text = text + "<b>Units</b><br>";
 		var units = tile.get_item('units'); 
 		if ( units != undefined ){
-			select_unit(hi,j,tile.get_item('selected_unit'));
+			select_unit(i,j,tile.get_item('selected_unit'));
 			for ( var c = 0; c < units.size; c++){
 				var unit = units.list[c];
-				text = text + "<img onclick='select_unit("+hi+","+j+","+c+");' src='"+unit.image+"'>&nbsp;";
+				text = text + "<img onclick='select_unit("+i+","+j+","+c+");' src='"+unit.image+"'>&nbsp;";
 			}
 		} else {
 			text = text + "No units on square.<br>";
@@ -51,22 +50,40 @@ draw = {
 
 	map: function(world){
 
+		// Active merged viewed tiles in jslos
+		jslos.reset_merged_tiles(world.rows, world.cols);
+
+		if ( FOW == true ){
+			// Generate blocked map
+			var blocked_map = los_map(world, player.active());
+
+			// Calculate line of site for all units
+			for ( var u = 0; u < player.active().units.length; u++) {
+				var unit =  player.active().units[u];
+				jslos.calculate_line_of_sight(blocked_map, {row:unit.row, col:unit.col}, unit.vision);
+			}
+		}
+
 		var text = "<table>";
 		for (var i=0;i< world.rows;i++){
 			text = text + "<tr>";
 			for (var j=0;j<world.cols;j++){
 
-				var x = "&nbsp;"
-				var height_index = ( world.rows - i );
-				var cell = world.get_cell(height_index-1,j);
-				var units = cell.get_item('units');
+				if ( FOW == false || jslos.merged_visible_tiles[i][j] == jslos.VISIBLE ){
+					var x = "&nbsp;"
+					var height_index = i;
+					var cell = world.get_cell(i,j);
+					var units = cell.get_item('units');
 
-				if ( units != undefined ){
-					var selected_unit = cell.get_item('selected_unit');
-					x = '<img src="' + units.get(selected_unit).image +  '" ></image>';
-				}
+					if ( units != undefined ){
+						var selected_unit = cell.get_item('selected_unit');
+						x = '<img src="' + units.get(selected_unit).image +  '" ></image>';
+					}
 	
-				text = text + "<td onclick='draw.tile_area("+ height_index + "," + j +");' style='width:20;height:20;background-color:"+ cell.get_item('background').color +";'>"+ x + "</td>";
+					text = text + "<td onclick='draw.tile_area("+ height_index + "," + j +");' style='width:20;height:20;background-color:"+ cell.get_item('background').color +";'>"+ x + "</td>";
+				} else {
+					text = text + "<td style='width:20;height:20;background-color:silver'>&nbsp;</td>";
+				}
 			}
 			text = text + "</tr>";
 		}

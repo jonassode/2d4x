@@ -40,6 +40,8 @@ player = {
 
 			// Set player
 			unit.player = this;
+			unit.row = row;
+			unit.col = col;
 	
 			// Add unit to players unit list
 			this.units.push(unit);
@@ -57,23 +59,6 @@ player = {
 
 		// 
 		return object;
-	},
-
-	draw_players: function(area){
-		var text = "";
-
-		for(var i = 0; i < this.list.length; i++){
-			var player = this.list[i];
-			text = text + "<img src='"+player.image+"' />&nbsp;";
-			text = text + player.name;
-			if ( this.active_player_index == player.index ){
-				text = text + "&nbsp;<img src='images/icons/arrow_left.png'/>";
-			}		
-
-			text = text + "<br/>";
-		}
-
-		document.getElementById(area).innerHTML = text;
 	},
 
 }

@@ -58,8 +58,16 @@ generate = {
 
 	},
 
-	START_LEVEL: 4,
-	WATER_LEVEL: 3,
+	START_LEVEL: 10,
+	WATER_LEVEL: 8,
+
+	set_start_level: function(level){
+		this.START_LEVEL = level;
+	},
+
+	set_water_level: function(level){
+		this.WATER_LEVEL = level;
+	},
 
 	world: function(height, width){
 		var arr = new Array(width);

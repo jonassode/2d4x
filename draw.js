@@ -12,11 +12,17 @@ draw = {
 	},
 
 	unit_information: function(unit){
-		var text = "<b>Unit information:</b><br>";
+		var text = "<div style='background-color:silver;'>";
+		text = text + "<b>Active Unit</b><br>";
 		text = text + "<img src='"+unit.image+"'><br>";
 		text = text + "Owner: " + unit.player.name + "<br>";
 		text = text + "Postion: " + unit.row + "," + unit.col + "<br>";
 		text = text + "Type: " + unit.type + "<br>";
+		text = text + "<br>";
+		text = text + "<b>Unit commands</b><br>";
+		text = text + "<button disabled='true'>Move</button>" ;
+
+		text = text + "</div>";
 
 		document.getElementById(draw.AREA_UNIT_INFORMATION).innerHTML = text;
 	},
@@ -25,6 +31,7 @@ draw = {
 		var tile = world.get_cell(i,j);
 		var text = "Postion: " + i + "," +j + "<br>";
 		text = text + "Type: " + tile.get_item('background').type + "<br>";
+		text = text + "Feature: " + tile.get_item('background').feature + "<br>";
 
 		// Minerals
 		text = text + "<br>";

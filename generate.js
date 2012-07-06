@@ -58,8 +58,8 @@ generate = {
 
 	},
 
-	START_LEVEL: 10,
-	WATER_LEVEL: 8,
+	START_LEVEL: undefined,
+	WATER_LEVEL: undefined,
 
 	set_start_level: function(level){
 		this.START_LEVEL = level;
@@ -105,7 +105,67 @@ generate = {
 			}
 		}
 
+		this.analyse_map(world);
 		return world;
+	},
+
+	// Features
+	SURFACE: "Surface",
+	ATMOSPHERE: "Atmosphere",
+	CRUST: "Crust",
+	WATERSURFACE: "Water surface",
+	WATERCRUST: "Water level",
+	EARTH: "Earth",
+	DEEPWATER: "Deep water",
+
+	analyse_map: function(map){
+
+		for(var i = 0; i < map.rows; i++){
+			for(var j = 0; j < map.cols; j++){
+				var cell = map.get_cell(i, j);
+				// landscape
+				var bg = cell.get_item('background');
+				var cell_below = cell.down();
+				var type_below;
+				var cell_above = cell.up();
+				var type_above;
+
+				if ( cell_below != undefined ) {
+					type_below = cell_below.get_item('background').type;
+				}
+				if ( cell_above != undefined ) {
+					type_above = cell_above.get_item('background').type;
+				}
+
+				if ( bg.type === nodes.AIR.type ) {
+
+					if ( type_below === nodes.GROUND.type ) {
+						bg.feature = this.SURFACE;
+					} else if ( type_below === nodes.WATER.type)  {
+						bg.feature = this.WATERSURFACE;
+					} else {
+						bg.feature = this.ATMOSPHERE;
+					}
+
+				} else if ( bg.type === nodes.GROUND.type ) {
+					if ( type_above === nodes.AIR.type)  {
+						bg.feature = this.CRUST;
+					} else {
+						bg.feature = this.EARTH;
+					}
+
+				} else if ( bg.type === nodes.WATER.type ) {
+					if ( type_above === nodes.AIR.type)  {
+						bg.feature = this.WATERCRUST;
+					} else {
+						bg.feature = this.DEEPWATER;
+					}
+				}
+
+
+			}
+		}
+
 	},
 
 

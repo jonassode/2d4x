@@ -1,12 +1,13 @@
 <html>
 	<head>
-		<script type='text/javascript' src='https://raw.github.com/jonassode/javascript-matrix/master/releases/jsmatrix_001.js' ></script>
+		<script type='text/javascript' src='https://raw.github.com/jonassode/javascript-matrix/master/releases/jsmatrix_003.js' ></script>
 		<script type='text/javascript' src='https://raw.github.com/jonassode/javascript-lineofsight/master/releases/jslos_003.js' ></script>
 		<script type='text/javascript' src='nodes.js' ></script> 
 		<script type='text/javascript' src='2d4x.js' ></script> 
 		<script type='text/javascript' src='player.js' ></script> 
 		<script type='text/javascript' src='draw.js' ></script> 
 		<script type='text/javascript' src='generate.js' ></script> 
+		<script type='text/javascript' src='utils.js' ></script> 
 
 	</head>
 	<body>
@@ -42,30 +43,9 @@
 
 		<script>
 
-		// Stolen from Snipplier
-		// POSTED BY the_coder on 09/16/09
-		// http://snipplr.com/view/19838/get-url-parameters/
-		function getUrlVars() {
-		    var vars = {};
-		    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-			vars[key] = value;
-		    });
-		    return vars;
-		}
-		var vars = getUrlVars();
-
-		function getIntOrDefault(name, default_value){
-			return vars[name] != undefined ? parseInt( vars[name] ) : default_value;
-		}
-
-
-		function getBooleanOrDefault(name, default_value){
-			return vars[name] != undefined ? Boolean( vars[name] ) : default_value;
-		}
-
 		var width = getIntOrDefault("width", 50);
 		var height = getIntOrDefault("height", 20);
-		var start_level = getIntOrDefault("start", 5);
+		var start_level = getIntOrDefault("land", 5);
 		var water_level = getIntOrDefault("water", 4);
 
 		generate.set_start_level(start_level);
@@ -75,11 +55,11 @@
 		var LOG = "";
 		var FOW = getBooleanOrDefault("FOW", true);
 
-		player.add('mr player 0');
-		player.add('mr player 1');
+		player.add(getStringOrDefault('player1','mr player 1'));
+		player.add(getStringOrDefault('player2','mr player 2'));
 
-		player.get(0).add_unit(world, nodes.settler(), start_level-1, 0);
-		player.get(1).add_unit(world, nodes.settler(), start_level-1, width-1);
+		player.get(0).add_unit(world, nodes.settler(), height - start_level - 1, 0);
+		player.get(1).add_unit(world, nodes.settler(), height - start_level - 1, width-1);
 
 		draw.screen();
 

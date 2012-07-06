@@ -23,7 +23,7 @@
 	jslos.blocker_values.push('#');
 
 	var los_map = function(map, player){
-		var arr = jslos.create_matrix(map.cols, map.rows);
+		var arr = jslos.create_matrix(map.rows, map.cols);
 
 		for(var i = 0; i < map.rows; i++){
 			for(var j = 0; j < map.cols; j++){
@@ -40,5 +40,7 @@
 
 		return arr;
 	}
+
+
 
 

@@ -1,6 +1,17 @@
 
 generate = {
 
+	START_LEVEL: undefined,
+	WATER_LEVEL: undefined,
+
+	set_start_level: function(level){
+		this.START_LEVEL = level;
+	},
+
+	set_water_level: function(level){
+		this.WATER_LEVEL = level;
+	},
+
 	cal_next_square: function(parent1, parent2){
 		var next = Math.floor((parent1+parent2)/2);
 		
@@ -58,16 +69,7 @@ generate = {
 
 	},
 
-	START_LEVEL: undefined,
-	WATER_LEVEL: undefined,
 
-	set_start_level: function(level){
-		this.START_LEVEL = level;
-	},
-
-	set_water_level: function(level){
-		this.WATER_LEVEL = level;
-	},
 
 	world: function(height, width){
 		var arr = new Array(width);

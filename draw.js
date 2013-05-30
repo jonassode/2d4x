@@ -20,7 +20,8 @@ draw = {
 		text = text + "Type: " + unit.type + "<br>";
 		text = text + "<br>";
 		text = text + "<b>Unit commands</b><br>";
-		text = text + "<button disabled='true'>Move</button>" ;
+		text = text + "<button onclick='alert(player.active().unit(0));'>Move</button> " ;
+		text = text + "<button disabled='true'>Settle</button>" ;
 
 		text = text + "</div>";
 

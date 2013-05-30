@@ -57,6 +57,10 @@ player = {
 			cell.set_item('selected_unit',index - 1);
 		}
 
+		object.unit = function(index){
+			return this.units[index];
+		}
+
 		// 
 		return object;
 	},

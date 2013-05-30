@@ -21,6 +21,12 @@ var nodes = {
 		object.image = 'images/units/' + image;
 		object.movement = movement;
 		object.vision = vision;
+
+		object.calculate_move = function(map){
+			alert(map.rows);
+
+		}
+
 		return object;
 	},
 
